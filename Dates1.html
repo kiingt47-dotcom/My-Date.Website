@@ -12,8 +12,10 @@
     
 
 <script>
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwuUxTd8nkxCnZSG7su6BY4y0yUJEJsn3S1oTfy4MmvQ71fFK8nXhSQvGSELmsEgjbw/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx-_Yomc8DNj4bR5oa9QR6GuBx2ajtk9x8Be3ia1l7ENbpE_-tg57A63kCmdGaYPuua/exec";
 
+const params = new URLSearchParams(window.location.search);
+const senderID = params.get("sender");
 
 document.getElementById("continueBtn").onclick = function () {
 
@@ -24,17 +26,20 @@ document.getElementById("continueBtn").onclick = function () {
         return;
     }
 
-    // Send date to Google Sheet
+    if (!senderID) {
+        alert("Invalid link ❤️");
+        return;
+    }
+
     fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
         body: JSON.stringify({
-            date: selectedDate,
-            name: "Someone"
+            sender: senderID,
+            date: selectedDate
         })
     });
 
-    // Go to next page immediately
     window.location.href = "Dates2.html";
 };
 </script>
@@ -45,7 +50,4 @@ document.getElementById("continueBtn").onclick = function () {
 </html>
 
 
-//code (https://script.google.com/macros/s/AKfycbwuUxTd8nkxCnZSG7su6BY4y0yUJEJsn3S1oTfy4MmvQ71fFK8nXhSQvGSELmsEgjbw/exec)
-//link (AKfycbwuUxTd8nkxCnZSG7su6BY4y0yUJEJsn3S1oTfy4MmvQ71fFK8nXhSQvGSELmsEgjbw)
-//link1 (https://script.google.com/macros/library/d/1fw2b1yHXikP04mk61F1QIUNyka7ubc0pDfqKuzKQSNWdwhPrV2wxkYpn/7)
-//link2(https://script.google.com/macros/s/AKfycbwuUxTd8nkxCnZSG7su6BY4y0yUJEJsn3S1oTfy4MmvQ71fFK8nXhSQvGSELmsEgjbw/exec)
+
